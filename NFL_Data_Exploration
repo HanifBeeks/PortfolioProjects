@@ -1,0 +1,49 @@
+/*
+NFL Synthetic vs Natural Turf Data Exploration 
+Skills used: Join */
+
+
+SELECT Surface
+from `nfl-first-project.injuryreport.injuryreports`;
+
+
+-- Select Data that we are going to be starting with
+SELECT Surface, DM_M7, DM_M28, DM_M42
+from `nfl-first-project.injuryreport.injuryreports`
+WHERE DM_M7 = 1 AND DM_M28 = 1 AND DM_M42 = 1;
+
+-- Joining NFL PlayList and Injury Report list using (PlayKEY) to Indentify the Position, Play Type, Weather and Stadium Type in which the injury occured
+-- Injuries that happen on Synthetic Grass
+-- When DM_M = 1 indicates Player was out 7 to 42 days or more
+
+SELECT injuryreports_1.PlayKey, StadiumType, Weather,Surface, PlayType, RosterPosition,DM_M42,DM_M28,DM_M7
+from `nfl-first-project.injuryreport.injuryreports` as injuryreports_1
+Join `nfl-first-project.playlist.playlist` as playlist_1
+ON injuryreports_1.PlayKey = playlist_1.PlayKey
+WHERE StadiumType is not null AND Weather is not null AND Surface = 'Synthetic' AND DM_M7 = 1 AND DM_M28 = 1 AND DM_M42 = 1;
+
+-- Injuries that happen on Natural Grass
+-- When DM_M = 1 indicates Player was out 7 to 42 days or more
+
+
+SELECT injuryreports_1.PlayKey, StadiumType, Weather,Surface, PlayType, RosterPosition,DM_M42, DM_M28,DM_M7
+from `nfl-first-project.injuryreport.injuryreports` as injuryreports_1
+Join `nfl-first-project.playlist.playlist` as playlist_1
+ON injuryreports_1.PlayKey = playlist_1.PlayKey
+WHERE StadiumType is not null AND Weather is not null AND Surface = 'Natural' AND DM_M7 = 1 AND DM_M28 = 1 AND DM_M42 = 1;
+
+-- POSITION OF THE INJURY
+
+SELECT Surface, Position, Weather, StadiumType
+from `nfl-first-project.injuryreport.injuryreports` as injuryreports_1
+Join `nfl-first-project.playlist.playlist` as playlist_1
+ON injuryreports_1.PlayKey = playlist_1.PlayKey
+WHERE StadiumType is not null AND Weather is not null;
+
+
+
+SELECT *
+from `nfl-first-project.injuryreport.injuryreports` as injuryreports_1
+Join `nfl-first-project.playlist.playlist` as playlist_1
+ON injuryreports_1.PlayKey = playlist_1.PlayKey
+
