@@ -1,0 +1,48 @@
+/*
+Mass Shooting Data Exploration and Cleaning
+Skills used: Join, Data Cleaning */
+-- Data from Mass Shootings
+SELECT *
+from `mass-shoot.MASS_SHOOTING.data_mass_shooting`;
+-- Data from All Incidents
+SELECT *
+FROM `mass-shoot.MASS_SHOOTING.all_incidents`;
+-- Join both Data tables connecting the Incident_ID
+Select *
+from `mass-shoot.MASS_SHOOTING.data_mass_shooting` AS TB_1
+JOIN `mass-shoot.MASS_SHOOTING.all_incidents` AS TB_2
+ON TB_1.Incident_ID = TB_2.Incident_ID
+Where TB_1.Incident_ID is not null;
+
+-- QUERIED INCIDENTS THAT HAD MORE THAN 0 PEOPLE KILLED AND INJURED 
+Select *
+from `mass-shoot.MASS_SHOOTING.data_mass_shooting` AS TB_1
+JOIN `mass-shoot.MASS_SHOOTING.all_incidents` AS TB_2
+ON TB_1.Incident_ID = TB_2.Incident_ID
+Where TB_1.Incident_ID is not null AND TB_1.__Injured > 0 AND TB_1.__Killed > 0;
+
+-- Cleaning data and removing any duplicates in the Incident_ID
+Select 
+distinct TB_1.Incident_ID, *, 
+from `mass-shoot.MASS_SHOOTING.data_mass_shooting` AS TB_1
+JOIN `mass-shoot.MASS_SHOOTING.all_incidents` AS TB_2
+ON TB_1.Incident_ID = TB_2.Incident_ID
+ORDER BY TB_1.INCIDENT_DATE;
+
+
+-- Sum of deaths by State 
+SELECT sum(TB_1.__Killed) as sum_deaths, tb_1.State
+from `mass-shoot.MASS_SHOOTING.data_mass_shooting` AS TB_1
+JOIN `mass-shoot.MASS_SHOOTING.all_incidents` AS TB_2
+ON TB_1.Incident_ID = TB_2.Incident_ID
+GROUP BY TB_1.State
+Order BY sum_deaths desc;
+
+
+-- Data Table for Visualization
+SELECT
+distinct TB_1.Incident_ID, *,
+from `mass-shoot.MASS_SHOOTING.data_mass_shooting` AS TB_1
+JOIN `mass-shoot.MASS_SHOOTING.all_incidents` AS TB_2
+ON TB_1.Incident_ID = TB_2.Incident_ID
+Where TB_1.Incident_ID is not null
