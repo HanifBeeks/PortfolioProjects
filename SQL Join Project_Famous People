@@ -1,0 +1,53 @@
+/* Create table about the people and what they do here
+Skills Used: Create Table and Join
+*/
+
+CREATE TABLE movie_star (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    fullname TEXT,
+    age INTEGER);
+    
+INSERT INTO movie_star (fullname, age) VALUES ("Will Smith", "12");
+INSERT INTO movie_star (fullname, age) VALUES ("Chris Rock", "25");
+INSERT INTO movie_star (fullname, age) VALUES ("The Rock", "14");
+INSERT INTO movie_star (fullname, age) VALUES ("Eddie Murphy", "20");
+INSERT INTO movie_star (fullname, age) VALUES ("Triple", "8");
+
+CREATE table movies (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    person_id INTEGER,
+    name TEXT);
+    
+INSERT INTO movies (person_id, name) VALUES (1, "I Am Legend");
+
+INSERT INTO movies (person_id, name) VALUES (2, "New Jack City");
+INSERT INTO movies (person_id, name) VALUES (3, "Fast and Furious");
+
+INSERT INTO movies (person_id, name) VALUES (4, "Beverly Hills Cop");
+INSERT INTO movies (person_id, name) VALUES (5, "The Chaperone");
+
+CREATE table movies_rating (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    person_id INTEGER,
+    ratings INTEGER);
+    
+INSERT INTO movies_rating (person_id, ratings) VALUES (1, 10);
+
+INSERT INTO movies_rating (person_id, ratings) VALUES (2, 11);
+INSERT INTO movies_rating (person_id, ratings) VALUES (3, 7);
+
+INSERT INTO movies_rating (person_id, ratings) VALUES (4, 6.8);
+INSERT INTO movies_rating (person_id, ratings) VALUES (5, 4.8);
+
+
+Select movie_star.fullname, movies.name
+From movie_star
+Join movies
+ON movie_star.id = movies.person_id;
+
+
+
+Select movies.name, movies_rating.ratings
+From movies
+Join movies_rating
+ON movies.id = movies_rating.person_id;
