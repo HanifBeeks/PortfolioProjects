@@ -1,0 +1,34 @@
+--Khan Academy Project/Modifying Table (Skills: Update, Delete and Alternate)
+
+CREATE TABLE picks(
+	id INTEGER PRIMARY KEY,
+	pick_number INTEGER,
+	name TEXT,
+	college TEXT,
+	picked_by TEXT,
+	position TEXT);
+
+INSERT INTO picks (pick_number, name, college, picked_by, position)
+	VALUES(1,"Michael Jordan","UNC","Chicago","SG");
+INSERT INTO picks (pick_number, name, college, picked_by, position)
+	VALUES(2,"Kevin Garnett","NONE","Timberwolves","C");
+INSERT INTO picks (pick_number, name, college, picked_by, position)
+	VALUES(3,"Kobe Bryant","NONE","Lakers","SG");
+INSERT INTO picks (pick_number, name, college, picked_by, position)
+	VALUES(4,"Lebron","NONE","Cavs","SF");
+INSERT INTO picks (pick_number, name, college, picked_by, position)
+	VALUES(5,"Magic Johnson","MSU","SUNS","PG");
+
+-- Updating database to change Magic Johnson team that pick him.	
+UPDATE picks SET picked_by = 'Lakers' Where pick_number = 5;
+
+Select * from picks;
+
+--Deleting pick number one in the draft
+
+Delete from picks Where pick_number = 1;
+
+Select * from picks;
+
+
+
